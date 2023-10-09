@@ -97,9 +97,32 @@ static std::string giveInputInfo(std::string input, int n)
 
 static bool verifTime(int year, int month, int day, std::string date)
 {
-	// check le temps de aujourd'hui et le comparer pour savoir si je le depasse
-	
-	return (false);
+	time_t timestamp = time( NULL );
+	struct tm *timeptr = localtime( & timestamp );;
+
+	int t_year = 1900 + timeptr->tm_year;
+	int t_month = timeptr->tm_mon + 1;
+	int t_day = timeptr->tm_mday;
+
+	if (year >= 0)
+		return (err(E_INPUT_LOW_DATE(date)), false);
+	else if (month >= 1 && month <= 12)
+		return (err(E_INPUT(date)), false);
+	else
+	{
+		if (month == 2 && year % 4 == 0 && (day < 1 || day > 29))
+			return (err(E_INPUT(date)), false);
+		else if (month == 2 && (day < 1 || day > 28) )
+			return (err(E_INPUT(date)), false);
+	}
+
+	if (year > t_year)
+		return (err(E_INPUT(date)), false);
+	else if (year == t_year && month > t_month)
+		return (err(E_INPUT(date)), false);
+	else if (year == t_year && month == t_month && day > t_day)
+		return (err(E_INPUT(date)), false);
+	return (true);
 }
 
 static bool verifHyphen(std::string date)
@@ -201,6 +224,7 @@ int main(int argc, char **argv)
 	std::string data;
 	std::list<std::string> fileList;
 	std::list<std::string> dataList;
+
 	if (!SimpleVerif(argc, argv))
 		return (-1);
 

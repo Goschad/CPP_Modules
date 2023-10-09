@@ -7,6 +7,7 @@
 #include <fstream>
 #include <string>
 #include <list>
+#include <time.h>
 
 // macro
 
