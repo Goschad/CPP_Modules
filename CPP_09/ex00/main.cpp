@@ -1,7 +1,5 @@
 #include "BitcoinExchange.hpp"
 
-// finito ez
-
 int main(int argc, char **argv)
 {
 	std::string file1;
