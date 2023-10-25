@@ -95,26 +95,17 @@ static void VectorTest(void)
 		std::cout << *it << std::endl;
 		++it;
 	}
-
 	std::vector<int> s(vstack);
 }
 
 int main()
 {
-
 	std::cout << "-------- MutantStack<int> --------\n" << std::endl;
-	
 	MutantStackTest();
-
 	std::cout << "-------- std::list<int> ----------\n" << std::endl;
-
 	ListTest();
-
 	std::cout << "-------- std::vector<int> --------\n" << std::endl;
-
 	VectorTest();
-
 	std::cout << "----------------------------------" << std::endl;
-
 	return 0;
 }

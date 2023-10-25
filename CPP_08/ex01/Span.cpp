@@ -9,7 +9,7 @@ Span::Span( void ) : _n( 0 )
 
 Span::Span( unsigned int n ) : _n( n ) 
 {
-	std::cout << "Span constructor was called." << std::endl;
+	// std::cout << "Span constructor was called." << std::endl;
 }
 
 Span::Span( Span const & src ) 
@@ -26,7 +26,6 @@ Span & Span::operator=(Span const & rhs)
 		_n = rhs.getN();
 		_spanList = rhs._spanList;
 	}
-	
 	return (*this);
 }
 
@@ -39,6 +38,21 @@ void Span::addNumber(int n)
 		if (_spanList.size() >= _n)
 			throw(SpanExceptionMax());
 		_spanList.push_back(n);
+	}
+	catch (const SpanExceptionMax &e)
+	{
+		std::cout << "can't add a number, exceeded the value of N" << std::endl;
+	}
+}
+
+void Span::addNumbers(std::list<int> list)
+{
+	std::list<int>::iterator it;
+
+	try
+	{
+		for (it = list.begin(); it != list.end(); ++it)
+			addNumber(*it);
 	}
 	catch (const SpanExceptionMax &e)
 	{
@@ -97,25 +111,16 @@ unsigned int Span::shortestSpan(void)
 
 unsigned int Span::longestSpan(void)
 {
-	int i = 0;
 	int shortest = 0;
 	int hightest = 0;
 	int longtest = 0;
-	std::list<int>::iterator it;
 
 	try
 	{
 		if (_spanList.size() == 0)
 			throw (SpanExceptionMin());
-
-		for (it = _spanList.begin(); it != _spanList.end(); ++it)
-		{
-			if (i == 0 || shortest > (*it))
-				shortest = (*it);
-			if (i == 0 || hightest < (*it))
-				hightest = (*it);
-			i++;
-		}
+		hightest = *std::max_element(_spanList.begin(), _spanList.end());
+		shortest = *std::min_element(_spanList.begin(), _spanList.end());
 		longtest = hightest - shortest;
 	}
 	catch (const SpanExceptionMin &e)
@@ -153,5 +158,5 @@ const char* Span::SpanExceptionMin::what() const throw()
 
 Span::~Span( void )
 {
-	std::cout << "Span destructor was called." << std::endl;
+	// std::cout << "Span destructor was called." << std::endl;
 }

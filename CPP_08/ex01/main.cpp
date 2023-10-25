@@ -1,20 +1,45 @@
 #include "Span.hpp"
 
 int main()
-{
-	Span sp = Span(5);
+{ 
+	Span span(1000);
 
-	sp.addNumber(6);
-	sp.addNumber(3);
-	sp.addNumber(17);
-	sp.addNumber(9);
-	sp.addNumber(11);
+	srand((unsigned int)time(NULL));
 
-	sp.addNumber(18);
-	sp.addNumber(19);
+	std::list<int> t;
+	for (int i = 0; i < 1000; i++)
+		t.push_back(std::rand() % 10000);
 
-	std::cout << sp.shortestSpan() << std::endl;
-	std::cout << sp.longestSpan() << std::endl;
+	span.addNumbers(t);
+
+	t.clear();
+
+	std::cout << "--- [ span with mutiples numbers ] --- " << std::endl;
+
+	std::cout << "longest = " << span.longestSpan() << std::endl;
+	std::cout << "shortest = " <<  span.shortestSpan() << std::endl;
+
+	// manual //
+
+	std::cout << "--- [ span with manual methode ] --- " << std::endl;
+
+	Span S_span(5);
+
+	S_span.addNumber(100);
+	S_span.addNumber(99);
+	S_span.addNumber(1000);
+	S_span.addNumber(1);
+	S_span.addNumber(40);
+
+	std::cout << "longest = " << S_span.longestSpan() << std::endl;
+	std::cout << "shortest = " <<  S_span.shortestSpan() << std::endl;
+
+	std::cout << std::endl;
+
+	// invalide size //
+
+	S_span.addNumber(1000000000);
+	S_span.addNumber(10000);
 	
 	return 0;
 }

@@ -16,31 +16,31 @@ int main(void)
 	valueForVect = 0;
 	valueForList = 0;
 
-	EasyFind( vectorList , valueForVect); // not found
-	EasyFind( containerList , valueForList); // not found
+	EasyFind( vectorList , valueForVect ); // not found
+	EasyFind( containerList , valueForList ); // not found
 
 	std::cout << std::endl;
 
 	valueForVect = 5;
 	valueForList = 5;
 
-	EasyFind( vectorList , valueForVect); // found
-	EasyFind( containerList , valueForList); // found
+	EasyFind( vectorList , valueForVect ); // found
+	EasyFind( containerList , valueForList ); // found
 
 	std::cout << std::endl;
 
 	valueForVect = 20;
 	valueForList = 7;
 
-	EasyFind( vectorList , valueForVect); // not found
-	EasyFind( containerList , valueForList); // found
+	EasyFind( vectorList , valueForVect ); // not found
+	EasyFind( containerList , valueForList ); // found
 
 	std::cout << std::endl;
 
 	valueForVect = 2;
 	valueForList = 55;
 
-	EasyFind( vectorList , valueForVect); // found
-	EasyFind( containerList , valueForList); // not found
+	EasyFind( vectorList , valueForVect ); // found
+	EasyFind( containerList , valueForList ); // not found
 
 }

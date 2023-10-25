@@ -10,7 +10,7 @@
 
 template< typename T, class Container = std::deque< T > >
 
-class MutantStack : public std::stack< T, Container > // public std::list< T, Container >
+class MutantStack : public std::stack< T, Container >
 {
 	public:
 		// constructor 
@@ -27,7 +27,6 @@ class MutantStack : public std::stack< T, Container > // public std::list< T, Co
 		// operator
 		MutantStack & operator=( const MutantStack & rhs ) 
 		{
-			// std::list< T, Container >::operator=( rhs );
     	    std::stack< T, Container >::operator=( rhs );
     	    return *this;
     	}

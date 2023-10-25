@@ -21,6 +21,7 @@ class Span
 
 		// function
 		void addNumber(int n);
+		void addNumbers(std::list<int> list);
 		unsigned int longestSpan(void);
 		unsigned int shortestSpan(void);
 
