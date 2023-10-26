@@ -4,6 +4,7 @@
 // include
 
 #include <iostream>
+#include <algorithm>
 #include <fstream>
 #include <string>
 #include <list>

@@ -363,9 +363,11 @@ static double searchDataRate(std::string date, std::list<std::string> data)
 	for (it = data.begin(); it != data.end(); ++it)
 	{
 		sp = split((*it), ",");
-		it_sp = sp.begin();
-		if (date == (*it_sp))
+		if (std::find(sp.begin(), sp.end(), date) != sp.end())
 			return (++it_sp, std::atof((*it_sp).c_str()));
+		// it_sp = sp.begin();
+		// if (date == (*it_sp))
+		// 	return (++it_sp, std::atof((*it_sp).c_str()));
 	}
 	return (0);
 }
