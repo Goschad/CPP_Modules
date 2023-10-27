@@ -16,6 +16,9 @@ class RPN
 		void PolishCalcul( char c );
 		int PolishMath(char **t,  int i );
 		int init_all(int argc, char **argv);
+
+		// useless
+		void printStack( void );
 	
 		std::stack<int> getStack(void) const;
 

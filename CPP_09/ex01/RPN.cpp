@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:56:12 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/10/26 14:51:25 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/10/27 11:10:06 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,19 @@ void RPN::PolishCalcul( char c )
 {
 	int first = 0;
 	int second = 0;
-	if (c == '+')
+
+	second = _stack.top();
+	_stack.pop();
+	first = _stack.top();
+	_stack.pop();
+	if (c == '+') // remplacer par des switch
+		_stack.push(first + second);
 	else if (c == '/')
+		_stack.push(first / second);
 	else if (c == '-')
+		_stack.push(first - second);
 	else if (c == '*')
+		_stack.push(first * second);
 }
 
 int RPN::PolishMath(char **t,  int i )
@@ -72,9 +81,14 @@ int RPN::PolishMath(char **t,  int i )
 				return (error("Error"), -1);
 		}
 	}
-	if (_stack.size() == 1)
-		return (_stack.top());
-	return (0);
+	if (_stack.size() == 1 && _stack.top() <= 2147483647 && _stack.top() >= -2147483648)
+	{
+		std::cout << _stack.top() << std::endl;
+		return (1);
+	}
+	else
+		return (error("Error"), -1);
+	return (error("Error"), -1);
 }
 
 std::stack<int> RPN::getStack(void) const

@@ -111,8 +111,8 @@ static bool verifMax(std::string input)
 
 	++it;
 	++it;
-	value = std::atol((*it).c_str());
-	if (value > 2147483647)
+	value = std::atol((*it).c_str());																					
+	if (value > 2147483647 || value > 1000)
 		return (false);
 	return (true);
 }
