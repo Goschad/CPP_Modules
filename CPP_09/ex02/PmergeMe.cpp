@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
+/*   By: GIGI <GIGI@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 11:17:36 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/10/27 19:35:25 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/10/31 03:07:02 by GIGI             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,155 +17,59 @@ static void err(std::string str)
 	std::cerr << str << std::endl;
 }
 
-static void swapV(std::vector< int > *container, int a, int b)
+static void displayDeque(std::deque< int > container)
 {
-	int p_a;
-	int p_b;
-	int i = 0;
-	std::vector< int > swaped;
-	std::vector< int >::iterator it;
-
-	for (it = container->begin(); it != container->end(); ++it)
-	{
-		if (i == a)
-			p_a = *it;
-		if (i == b)
-			p_b = *it;
-		i++;
-	}
-
-	i = 0;
-
-	for (it = container->begin(); it != container->end(); ++it)
-	{
-		if (i == a && p_a > p_b)
-			swaped.push_back(p_b);
-		else if (i == b && p_a > p_b)
-			swaped.push_back(p_a);
-		else
-			swaped.push_back(*it);
-		i++;
-	}
-
-	container->clear();
-
-	for (it = swaped.begin(); it != swaped.end(); ++it)
-		container->push_back(*it);
+    std::deque< int >::iterator it;
+    for (it = container.begin(); it != container.end(); ++it)
+        std::cout << *it << " ";
+    std::cout << std::endl;
 }
 
-// change
-
-static void swapD(std::deque< int > *container, int a, int b)
+static void displayVector(std::vector< int > container)
 {
-	int p_a;
-	int p_b;
-	int i = 0;
-	std::deque< int > swaped;
-	std::deque< int >::iterator it;
-
-	for (it = container->begin(); it != container->end(); ++it)
-	{
-		if (i == a)
-			p_a = *it;
-		if (i == b)
-			p_b = *it;
-		i++;
-	}
-
-	i = 0;
-
-	for (it = container->begin(); it != container->end(); ++it)
-	{
-		if (i == a && p_a > p_b)
-			swaped.push_back(p_b);
-		else if (i == b && p_a > p_b)
-			swaped.push_back(p_a);
-		else
-			swaped.push_back(*it);
-		i++;
-	}
-
-	container->clear();
-
-	for (it = swaped.begin(); it != swaped.end(); ++it)
-		container->push_back(*it);
+    std::vector< int >::iterator it;
+    for (it = container.begin(); it != container.end(); ++it)
+        std::cout << *it << " ";
+    std::cout << std::endl;
 }
 
-static bool VerifSortV( std::vector< int > container )
+static void mergeInsertSortDeque(std::deque< int > *d)
 {
-	bool t = false;
-	int n;
-	std::vector< int >::iterator it;
+	int temp;
+	std::deque< int >::iterator it1, it2;
 
-	if (container.size() == 1)
-		return (true);
-	for (it = container.begin(); it != container.end(); ++it)
-	{
-		if (t == false)
-		{
-			n = *it;
-			t = true;
-		}
-		if (n <= *it)
-			n = *it;
-		else
-			return (false);
-	}
-	return (true);
+    for (it1 = d->begin() + 1; it1 != d->end(); ++it1)
+    {
+        temp = *it1;
+        it2 = it1;
+        while (it2 != d->begin() && *(std::prev(it2)) > temp)
+        {
+            *it2 = *(std::prev(it2));
+            std::advance(it2, -1);
+        }
+        *it2 = temp;
+    }
 }
 
-static bool VerifSortD( std::deque< int > container )
+static void mergeInsertSortVector(std::vector< int > *v)
 {
-	bool t = false;
-	int n = 0;
-	std::deque< int >::iterator it;
+	int temp;
+	std::vector<int>::iterator it1, it2;
 
-	if (container.size() == 1)
-		return (true);
-	for (it = container.begin(); it != container.end(); ++it)
-	{
-		if (t == false)
-		{
-			n = *it;
-			t = true;
-		}
-		if (n <= *it)
-			n = *it;
-		else
-			return (false);
-	}
-	return (true);
+    for (it1 = v->begin() + 1; it1 != v->end(); ++it1)
+    {
+        temp = *it1;
+        it2 = it1;
+        while (it2 != v->begin() && *(std::prev(it2)) > temp)
+        {
+            *it2 = *(std::prev(it2));
+            std::advance(it2, -1);
+        }
+        *it2 = temp;
+    }
 }
 
-static int return_posV( std::vector< int > v , int pos)
-{
-	int i = 0;
-	std::vector< int >::iterator vI;
-
-	for (vI = v.begin(); vI != v.end(); ++vI)
-	{
-		if (i == pos)
-			return (*vI);
-		i++;
-	}
-	return (0);
-}
-
-static int return_posD( std::deque< int > v , int pos)
-{
-	int i = 0;
-	std::deque< int >::iterator vI;
-
-	for (vI = v.begin(); vI != v.end(); ++vI)
-	{
-		if (i == pos)
-			return (*vI);
-		i++;
-	}
-	return (0);
-}
-
-int all_check(int argc, char **argv)
+int allCheck(int argc, char **argv)
 {
 	if (argc < 2)
 		return (err("Error"), -1);
@@ -174,16 +78,9 @@ int all_check(int argc, char **argv)
 		for (int i = 0; argv[j][i]; i++)
 			if ((argv[j][i] < '0' || argv[j][i] > '9'))
 				return (err("Error"), -1);
-		if (std::atoi(argv[j]) > 2147483647)
+		if (std::atoi(argv[j]) > 2147483647 || std::atoi(argv[j]) < 0)
 			return (err("Error"), -1);
 	}
-
-	std::cout << "Before: ";
-	for (int j = 1; argv[j]; j++)
-	{
-		std::cout << argv[j] << " ";
-	}
-	std::cout << std::endl;
 	return (1);
 }
 
@@ -196,61 +93,27 @@ void fill_list( std::vector< int > *list_v, std::deque< int > *list_d, char **ar
 	}
 }
 
-void SortForV( std::vector< int > v )
+void adventureTime( std::vector< int > *list_v, std::deque< int > *list_d )
 {
-	int pair = 2;
-	int j = 0;
-	int i = 0;
-	clock_t t ;
-	std::vector< int >::iterator it;
+	clock_t t, end;
+	double time1, time2;
+
+	std::cout << "Before: ";
+    displayDeque(*list_d);
 
 	t = clock();
-	while (!VerifSortV( v ))
-	{
-		for (it = v.begin(); it != v.end(); ++it)
-		{
-			if (j < (pair - 1))
-				break;
-			if (i + 1 < v.size())
-				swapV(&v, i, i + 1);
-			j++;
-			i += 1;
-		}
-		j = 0;
-		i = 0;
-		pair = pair * 2;
-	}
-	
-	std::cout << "After:";
-	for (it = v.begin(); it != v.end(); ++it)
-		std::cout << " " << *it;
-	std::cout << std::endl;
-	std::cout << "Time to process a range of " << v.size() << " elements with std::vector : " << (double)((clock() - t) / (double)(CLOCKS_PER_SEC / 1000)) << " us" << std::endl;
-}
-
-void SortForD( std::deque< int > d )
-{
-	int pair = 2;
-	int j = 0;
-	int i = 0;
-	clock_t t ;
-	std::deque< int >::iterator it;
+    mergeInsertSortDeque(list_d);
+	end = clock();
+    time1 = static_cast<double>(end - t) / CLOCKS_PER_SEC * 1000;
 
 	t = clock();
-	while (!VerifSortD( d ))
-	{
-		for (it = d.begin(); it != d.end(); ++it)
-		{
-			if (j < (pair - 1))
-				break;
-			if (i + 1 < d.size())
-				swapD(&d, i, i + 1);
-			j++;
-			i += 1;
-		}
-		j = 0;
-		i = 0;
-		pair = pair * 2;
-	}
-	std::cout << "Time to process a range of " << d.size() << " elements with std::deque : " << (double)((clock() - t) / (double)(CLOCKS_PER_SEC / 1000)) << " us" << std::endl;
+    mergeInsertSortVector(list_v);
+	end = clock();
+    time2 = static_cast<double>(end - t) / CLOCKS_PER_SEC * 1000;
+
+	std::cout << "After: ";
+	displayVector(*list_v);
+
+	std::cout << "Time to process a range of " << list_d->size() << " elements with std::deque< int >: " << time1 << " us" << std::endl;
+	std::cout << "Time to process a range of " << list_v->size() << " elements with std::vector< int >: " << time2 << " us" << std::endl;
 }

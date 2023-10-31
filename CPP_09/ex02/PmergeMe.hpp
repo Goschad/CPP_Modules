@@ -2,17 +2,17 @@
 #define PMERGEME_HPP
 
 #include <iostream>
-#include <algorithm>
-#include <vector>
 #include <deque>
-#include <time.h>
+#include <vector>
+#include <algorithm>
+#include <ctime>
+#include <cstdlib>
 
-void fill_list( std::vector< int > *list_v, std::deque< int > *list_d, char **argv );
-int all_check(int argc, char **argv);
+int     allCheck(int argc, char **argv);
+void    fill_list( std::vector< int > *list_v, std::deque< int > *list_d, char **argv );
 
 // Sort //
 
-void SortForV( std::vector< int > v );
-void SortForD( std::deque< int > d );
+void    adventureTime( std::vector< int > *list_v, std::deque< int > *list_d );
 
 #endif
