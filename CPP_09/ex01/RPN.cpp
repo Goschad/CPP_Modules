@@ -6,7 +6,7 @@
 /*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:56:12 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/10/27 11:10:06 by mbouaza          ###   ########.fr       */
+/*   Updated: 2023/11/08 22:02:59 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void RPN::PolishCalcul( char c )
 	_stack.pop();
 	first = _stack.top();
 	_stack.pop();
-	if (c == '+') // remplacer par des switch
+	if (c == '+')
 		_stack.push(first + second);
 	else if (c == '/')
 		_stack.push(first / second);

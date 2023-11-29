@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: GIGI <GIGI@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mbouaza <mbouaza@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 11:17:36 by mbouaza           #+#    #+#             */
-/*   Updated: 2023/10/31 03:07:02 by GIGI             ###   ########.fr       */
+/*   Updated: 2023/11/28 16:39:18 by mbouaza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,18 @@ static void displayVector(std::vector< int > container)
     std::cout << std::endl;
 }
 
+static  std::vector<int>::iterator preV(std::vector< int >::iterator vit)
+{
+    std::advance(vit, -1);
+    return (vit);
+}
+
+static  std::deque<int>::iterator preD(std::deque< int >::iterator dit)
+{
+    std::advance(dit, -1);
+    return (dit);
+}
+
 static void mergeInsertSortDeque(std::deque< int > *d)
 {
 	int temp;
@@ -42,12 +54,13 @@ static void mergeInsertSortDeque(std::deque< int > *d)
     {
         temp = *it1;
         it2 = it1;
-        while (it2 != d->begin() && *(std::prev(it2)) > temp)
+        while (it2 != d->begin() && *(preD(it2)) > temp)
         {
-            *it2 = *(std::prev(it2));
+            *it2 = *(preD(it2));
             std::advance(it2, -1);
         }
         *it2 = temp;
+        // displayDeque(*d);
     }
 }
 
@@ -60,9 +73,9 @@ static void mergeInsertSortVector(std::vector< int > *v)
     {
         temp = *it1;
         it2 = it1;
-        while (it2 != v->begin() && *(std::prev(it2)) > temp)
+        while (it2 != v->begin() && *(preV(it2)) > temp)
         {
-            *it2 = *(std::prev(it2));
+            *it2 = *(preV(it2));
             std::advance(it2, -1);
         }
         *it2 = temp;

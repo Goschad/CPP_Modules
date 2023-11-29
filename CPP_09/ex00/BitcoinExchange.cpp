@@ -160,11 +160,17 @@ static std::string giveInputInfo(std::string input, int n)
 	int i = 1;
 	std::list<std::string> list = split(input, " ");
 	std::list<std::string>::iterator it;
+	std::list<int> listInt;
 
 	for (it = list.begin(); it != list.end(); ++it)
 	{
-		if (i == n)
+		listInt.push_back(i);
+		if (std::find(listInt.begin(), listInt.end(), n) != listInt.end())
+		{
+			listInt.clear();
 			return (*it);
+		}
+		listInt.clear();
 		i++;
 	}
 	return ((*it));
@@ -338,6 +344,22 @@ static std::string downGradeDate(std::string date)
 	return (makeMasterclass(year, month, day));
 }
 
+static bool creationDateCmp(std::list<std::string> date)
+{
+	std::list<std::string>::iterator it = date.begin();
+	int Year = std::atoi((*it++).c_str());
+	int Month = std::atoi((*it++).c_str());
+	int Day = std::atoi((*it).c_str());
+
+	if (Year > 2009)
+		return (true);
+	else if (Year == 2009 && Month > 1)
+		return (true);
+	else if (Year == 2009 && Month == 1 && Day >= 2)
+		return (true);
+	return (false);
+}
+
 static std::string searchGoodDate(std::list<std::string> dateList, std::string date)
 {
 	std::list<std::string>::iterator it;
@@ -347,6 +369,8 @@ static std::string searchGoodDate(std::list<std::string> dateList, std::string d
 		for (it = dateList.begin(); it != dateList.end(); ++it)
 			if (*it == date)
 				return (*it);
+		if (!creationDateCmp(split(date, "-")))
+			return ("Date is too low");
 		date = downGradeDate(date);
 	}
 	return (date);
@@ -363,12 +387,12 @@ static double searchDataRate(std::string date, std::list<std::string> data)
 	for (it = data.begin(); it != data.end(); ++it)
 	{
 		sp = split((*it), ",");
-		if (std::find(sp.begin(), sp.end(), date) != sp.end())
+		it_sp = sp.begin();
+		if (date == (*it_sp))
 			return (++it_sp, std::atof((*it_sp).c_str()));
-		// it_sp = sp.begin();
-		// if (date == (*it_sp))
-		// 	return (++it_sp, std::atof((*it_sp).c_str()));
 	}
+	if (date == "Date is too low")
+		return (-1);
 	return (0);
 }
 
@@ -428,8 +452,10 @@ void analyseData(std::list<std::string> data, std::list<std::string> input)
 			value = giveInputInfo((*it), 3);
 			rateData(data, date, &dataRate);
 			rate = std::atof(value.c_str());
-			std::cout << date << " => " << value << " = " << rate * dataRate << std::endl;
+			if (dataRate == -1)
+				std::cout << date << " => " << "Date is too low" << std::endl;
+			else
+				std::cout << date << " => " << value << " = " << rate * dataRate << std::endl;
 		}
 	}
-	// fonction qui donne le rate en fonction de la date / si impossible rate error
 }
